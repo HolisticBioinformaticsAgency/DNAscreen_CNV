@@ -1,0 +1,11 @@
+# Ignore everything in the repository by default
+/*
+
+# Keep this control file and project documentation
+!.gitignore
+!README.md
+
+# Track selected directories and all their contents
+!/Aim_1_scripts/
+
+*.out
