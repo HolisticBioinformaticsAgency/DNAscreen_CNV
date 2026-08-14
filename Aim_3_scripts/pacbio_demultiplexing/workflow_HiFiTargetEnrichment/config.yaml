@@ -1,0 +1,46 @@
+# temporary storage
+tmpdir : '/tmp'
+# tmpdir : '/scratch'
+
+# demux
+barcodes : '/fs04/scratch2/vh83/projects/temp_dnascreen_copy/dnascreen/demultiplex_pb/workflow_HiFiTargetEnrichment/barcodes/custom_lima_barcodes_v2.fasta'
+# barcodes : '/fs04/scratch2/vh83/projects/temp_dnascreen_copy/dnascreen/demultiplex_pb/workflow_HiFiTargetEnrichment/barcodes/barcodes_RC_F.fa'
+
+# deepvariant
+DEEPVARIANT_VERSION : '1.5.0'
+N_SHARDS            : 96
+run_deepvariant     : False  # <-- skip DeepVariant
+
+# whatshap
+run_whatshap       : False  # <-- skip WhatsHap
+
+ref :
+  shortname   : 'GRCh38_noalt'
+  fasta       : '/fs04/vh83/reference/genomes/hg38/heng_li_recomended/GCA_000001405.15_GRCh38_no_alt_analysis_set.fasta'
+  index       : '/fs04/vh83/reference/genomes/hg38/heng_li_recomended/GCA_000001405.15_GRCh38_no_alt_analysis_set.fasta.fai'
+  chr_lengths : '/fs04/vh83/reference/genomes/hg38/heng_li_recomended/GCA_000001405.15_GRCh38_no_alt_analysis_set.chr_lengths.txt'  # cut -f1,2 reference.fasta.fai > reference.chr_lengths.txt
+  tr_bed      : '/fs04/scratch2/vh83/projects/temp_dnascreen_copy/dnascreen/demultiplex_pb/workflow_HiFiTargetEnrichment/aux/tandem_repeats.bed'
+  exons       : '/fs04/scratch2/vh83/projects/temp_dnascreen_copy/dnascreen/demultiplex_pb/workflow_HiFiTargetEnrichment/aux/all_hg38_exons_ensembl.bed'
+
+# glnexus
+run_cohort: False
+GLNEXUS_VERSION : 'v1.4.1'
+merge : 1000000
+
+# extra
+QC :
+  runQC  : False
+  lowcov : 10
+
+picard :
+  near_distance : 5000
+  sample_size   : 1000
+
+pharmcat:
+  run_analysis: False
+  positions: '/fs04/scratch2/vh83/projects/temp_dnascreen_copy/dnascreen/demultiplex_pb/workflow_HiFiTargetEnrichment/aux/pharmcat_positions.vcf.bgz'
+  mincov: 10
+
+annotate:
+  variants: 'annotation/00-All.fixed_chr_PGx_only.vcf.gz'
+  gVCF: False

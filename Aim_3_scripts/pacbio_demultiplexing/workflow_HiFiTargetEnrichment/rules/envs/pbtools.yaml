@@ -1,0 +1,8 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pbcoretools
+  - pbbam
+  - samtools==1.12
