@@ -1,0 +1,24 @@
+# clearCNV parameters
+outputFolder: /path/to/Optimized_CNV_Detection_Pipeline/output/clearcnv_output_ont_dorado
+cores: 20
+
+# clearCNV runtime options
+# using default values because what came from the best_params for clearCNV only called one concordant CNV...
+expected_artefacts: 0.02
+sample_score_factor: 2.0
+minimum_group_sizes: 20
+zscale: 0.65
+size: 2000
+del_cutoff: 0.75
+dup_cutoff: 1.35
+trans_prob: 0.001
+
+# Reference files
+fasta_file: /path/to/genomes/Homo_sapiens_assembly38.fasta
+bed_file: /path/to/Optimized_CNV_Detection_Pipeline/bed_files/9genes_25bp.fix.sorted.bed
+blacklist: /path/to/Optimized_CNV_Detection_Pipeline/clearCNV/consensusBlacklist.bed
+
+# Dataset settings
+project_name: bams_run5
+# bams_dir: /path/to/dorado_demultiplex_142pods_barcode_both_ends/bams_coord_sorted
+bams_dir: /path/to/consented/run5/bams_run5
