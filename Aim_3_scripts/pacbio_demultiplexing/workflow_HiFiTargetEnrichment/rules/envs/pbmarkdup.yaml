@@ -1,0 +1,7 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pbmarkdup=1.2.0
+  - samtools==1.12

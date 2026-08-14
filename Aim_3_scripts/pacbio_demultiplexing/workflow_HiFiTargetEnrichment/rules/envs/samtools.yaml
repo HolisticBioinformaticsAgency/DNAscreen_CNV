@@ -1,0 +1,8 @@
+name: samtools
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - samtools==1.17
+  - bedtools==2.30.0

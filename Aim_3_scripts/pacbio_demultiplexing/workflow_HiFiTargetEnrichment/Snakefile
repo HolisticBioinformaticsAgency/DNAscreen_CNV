@@ -1,0 +1,105 @@
+import re
+
+## prefix every task command with:
+shell.prefix(
+    f"set -o pipefail; umask 002; export TMPDIR={config['tmpdir']}; export SINGULARITY_TMPDIR={config['tmpdir']}; "
+)
+
+batch = config["batch"]
+movie = config["ccsReads"]
+
+# Map barcodes to samples
+barcode2sample = dict(
+    row.split(',')
+    for i, row in enumerate(open(config["biosamples"]).read().strip().split('\n'))
+    if i > 0
+)
+sample2barcode = {v: k for k, v in barcode2sample.items()}
+ref = config["ref"]["shortname"]
+print(f"Processing batch {batch} with reference {ref}.")
+
+# checkpoint for demuxed samples
+def _get_demuxed_samples(wildcards):
+    demuxdir = checkpoints.demux_ubam.get(**wildcards).output.odir
+    outputBarcodes = glob_wildcards(f'{demuxdir}/demultiplex.{{barcode}}.bam').barcode
+    return [barcode2sample[bc] for bc in outputBarcodes if bc != 'unbarcoded']
+
+targets = []
+
+# ----------------------
+# Include rule files
+# ----------------------
+include: "rules/common.smk"
+include: "rules/demux.smk"
+include: "rules/preprocess.smk"
+include: "rules/pbmm2.smk"
+include: "rules/pbsv.smk"
+
+# Cohort and probes
+if config.get("run_cohort", False):
+    include: "rules/glnexus.smk"
+if config.get("probes", "None") != "None":
+    include: "rules/hsmetrics.smk"
+if config.get("pharmcat", {}).get("run_analysis", False):
+    include: "rules/pharmcat.smk"
+    include: "rules/pangu_cyp2d6.smk"
+
+# ----------------------
+# Optional rules via config
+# ----------------------
+if config.get("run_deepvariant", True):
+    include: "rules/deepvariant.smk"
+    # DV targets
+    targets.append(lambda wildcards: [
+        f"batches/{batch}/{sample}/deepvariant/{sample}.{ref}.deepvariant.{suffix}"
+        for suffix in [
+            "vcf.gz",
+            "vcf.gz.tbi",
+            "g.vcf.gz",
+            "g.vcf.gz.tbi",
+            "visual_report.html",
+            "vcf.stats.txt",
+        ]
+        for sample in _get_demuxed_samples(wildcards)
+    ])
+
+if config.get("run_whatshap", True):
+    include: "rules/whatshap.smk"
+    # WH targets
+    targets.append(lambda wildcards: [
+        f"batches/{batch}/{sample}/whatshap/{sample}.{ref}.deepvariant.{suffix}"
+        for suffix in [
+            "phased.vcf.gz",
+            "phased.vcf.gz.tbi",
+            "phased.gtf",
+            "phased.tsv",
+            "phased.blocklist",
+            "haplotagged.bam",
+            "haplotagged.bam.bai",
+        ]
+        for sample in _get_demuxed_samples(wildcards)
+    ])
+
+if config.get("annotate", {}).get("gVCF", False):
+    include: "rules/annotate.smk"
+
+# QC extras
+if config.get('QC', {}).get('runQC', False):
+    include: "rules/qc_cov.smk"
+    include: "rules/qc_ext.smk"
+
+# pbsv targets (always run)
+targets.append(lambda wildcards: [
+    f"batches/{batch}/{sample}/pbsv/{sample}.{ref}.pbsv.vcf"
+    for sample in _get_demuxed_samples(wildcards)
+])
+
+# ----------------------
+# Rule order (only if DeepVariant is enabled)
+# ----------------------
+if config.get("run_deepvariant", True):
+    ruleorder: deepvariant_postprocess_variants > tabix_vcf
+
+rule all:
+    input:
+        targets
