@@ -1,0 +1,11 @@
+deconFolder: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/DECoN/Linux
+
+# default
+mincorr: 0.98
+mincov: 100
+transProb: 0.01
+
+# Reference files
+fasta_file: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta
+# bed_file: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/Optimized_CNV_Detection_Pipeline/bed_files/9genes_25bp.fix.sorted.bed
+bed_file: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/Optimized_CNV_Detection_Pipeline/bed_files/dnascreen_genes_500bp_bins.bed

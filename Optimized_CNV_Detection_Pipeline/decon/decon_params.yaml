@@ -1,0 +1,15 @@
+deconFolder: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/DECoN/Linux
+outputFolder: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/Optimized_CNV_Detection_Pipeline/output/decon_output_ont_dorado
+
+# default
+mincorr: 0.98
+mincov: 100
+transProb: 0.01
+
+# Reference files
+fasta_file: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta
+bed_file: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/Optimized_CNV_Detection_Pipeline/bed_files/9genes_25bp.fix.sorted.bed
+
+# Dataset settings
+project_name: ont_dorado_9genes
+bams_dir: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/dorado_demultiplex_142pods_barcode_both_ends/bams_dedup_cleaned
