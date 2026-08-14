@@ -1,11 +1,6 @@
-# Ignore everything in the repository by default
-/*
+## Keep out any output or log files
 
-# Keep this control file and project documentation
-!.gitignore
-!README.md
-
-# Track selected directories and all their contents
-!/Aim_1_scripts/
 
 *.out
+*.log
+*.err

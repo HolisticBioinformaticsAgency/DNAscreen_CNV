@@ -1,0 +1,8 @@
+atlascnvFolder: /path/to/cnvbenchmarker/Atlas-CNV/
+contigFile: /path/to/CNVbenchmarkeR2/tools/atlasCNV/contig-ploidy-prior.tsv
+gatkFolder: /path/to/cnvbenchmarker/gatk_latest.sif
+rpath: /apps/R/4.4.0-mkl/bin/R
+Rscript: /apps/R/4.4.0-mkl/bin/Rscript
+
+threshold_del: -0.6
+threshold_dup: 0.4

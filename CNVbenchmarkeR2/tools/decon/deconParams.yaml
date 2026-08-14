@@ -1,0 +1,5 @@
+deconFolder: /path/to/cnvbenchmarker/DECoN/Linux
+# default
+mincorr: 0.98
+mincov: 100
+transProb: 0.01

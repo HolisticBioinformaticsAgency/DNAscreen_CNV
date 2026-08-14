@@ -1,0 +1,14 @@
+clearCNVFolder: /yourPath/clearcnv/bin/activate #im not using this
+# default values
+cores: 20
+expected_artefacts: 0.02
+sample_score_factor: 2.0
+minimum_group_sizes: 20
+zscale: 0.65
+size: 2000
+del_cutoff: 0.75
+dup_cutoff: 1.35
+trans_prob: 0.001
+drmaa_mem: 16000
+drmaa_time: 4:00
+drmaa_jobs: 50

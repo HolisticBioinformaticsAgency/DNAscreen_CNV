@@ -1,0 +1,11 @@
+clincnvFolder: /path/to/cnvbenchmarker/ClinCNV
+ngsbitsFolder: /path/to/cnvbenchmarker/ngs-bits/bin
+condaFolder: /usr/local/anaconda/5.1.0-Python3.6-gcc5/condabin/conda
+environmentName: mamba-env
+
+# default values
+scoreG: 10  # sensitivity and specificity balance
+minimumNumOfElemsInCluster: 100  # minimum number of elements in cluster. Clustering happens only if nSamples > than 3 by number of elements in cluster
+
+# other
+threads: 2
