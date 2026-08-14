@@ -1,0 +1,18 @@
+viscapFolder: /home/zlaw0001/vh83_scratch/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/VisCap
+gatkFolder: /home/zlaw0001/vh83_scratch/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/gatk_latest.sif
+
+
+# default
+cov_file_pattern: ".sample_interval_summary$"  # this is the extension of the coverage file from DepthOfCoverage
+cov_field: "_total_cvg" # field to be read from coverage file
+ylimits: c(-2, 2)
+iqr_multiplier: 3
+threshold.min_exons: 1
+threshold.cnv_log2_cutoffs_min: -0.55
+threshold.cnv_log2_cutoffs_max: 0.40
+iterative.calling.limit: 1        #Set to 0 to iterate until all failed samples are removed
+infer.batch.for.sub.out_dir: TRUE     #Set to FALSE to prompt users for output directory
+clobber.output.directory: FALSE    #Set to FALSE to stop run when output directory already exists
+
+#Setting a path to data skips prompts. Set to FALSE for deployment.
+dev_dir: FALSE

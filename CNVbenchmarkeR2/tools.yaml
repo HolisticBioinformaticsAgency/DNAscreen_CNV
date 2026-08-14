@@ -1,0 +1,14 @@
+# define which tools will be run in the benchmark. Set 'true' to be included', 'false' to omit
+# the order of tools matter when evaluating parameters!
+decon: false
+panelcnmops: false
+convading: false
+exomedepth: false
+clincnv: false
+codex2: false
+cobalt: false
+clearCNV: true
+cnvkit: false
+germlineCNVcaller: false
+viscap: false
+atlasCNV: false

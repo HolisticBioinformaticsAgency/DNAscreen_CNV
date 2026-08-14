@@ -1,0 +1,7 @@
+SampleID	ICR96Pool	Gene	MLPAResult	ResultType	ExonCNVType	ExonCNVSize	Chromosome	5PrimeExon37	3PrimeExon37
+DNS-XTHS-0111-D05-DNS010349_S36.hq.sorted.marked	1	APOB	Exon 14-29 deletion	ExonCNV	Deletion	Multi	2	21001705	21026989
+DNS-XTHS-0095-B04-DNS008387_S218.hq.sorted.marked	1	LDLR	Whole Gene Duplication	WholeGene	Duplication	Multi	19	11100198	11131341
+DNS-XTHS-0009-G09-DNS000601_S167.hq.sorted.marked	1	BRCA2	Exon 4-6 Deletion	ExonCNV	Deletion	Multi	13	32326076	32326638
+DNS-XTHS-0077-C08-DNS006916_S59.hq.sorted.marked	1	BRCA1	Exon 12 and two 5' regions Duplication	ExonCNV	Duplication	Multi	17	43082379	43082600
+DNS-XTHS-0047-G06-DNS004024_S335.hq.sorted.marked	1	BRCA1	Exon 20 Deletion	ExonCNV	Deletion	Single	17	43115701	43115804
+DNS-XTHS-0056-H12-DNS004937_S96.hq.sorted.marked	1	BRCA1	Exon 23 Deletion	ExonCNV	Deletion	Single	17	43045653	43045827

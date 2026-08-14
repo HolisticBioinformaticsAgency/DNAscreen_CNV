@@ -1,0 +1,12 @@
+cobaltFolder: /home/zlaw0001/.local/bin
+# default values
+threads: 2
+training_samples: 50
+chunk_size: 1000
+no_mask: False
+var_cutoff: 0.90
+min_depth: 20
+low_depth_trim_frac: 0.01
+high_depth_trim_frac: 0.01
+high_cv_trim_frac: 0.01
+cluster_width: 50

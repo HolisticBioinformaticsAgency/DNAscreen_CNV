@@ -1,0 +1,8 @@
+atlascnvFolder: /home/zlaw0001/vh83_scratch/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/Atlas-CNV/
+contigFile: /home/zlaw0001/vh83_scratch/projects/temp_dnascreen_copy/dnascreen/CNVbenchmarkeR2/tools/atlasCNV/contig-ploidy-prior.tsv
+gatkFolder: /home/zlaw0001/vh83_scratch/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/gatk_latest.sif
+rpath: /apps/R/4.4.0-mkl/bin/R
+Rscript: /apps/R/4.4.0-mkl/bin/Rscript
+
+threshold_del: -0.6
+threshold_dup: 0.4

@@ -1,0 +1,43 @@
+# Paths
+picard: /fs04/vh83/local_software/picard.jar
+gatk: /home/zlaw0001/vh83_scratch/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/gatk_latest.sif
+# the outputFolder requires physical path because it runs within the singularity container
+# which doesn't work with symlinked folders
+# outputFolder: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/output
+
+# GermlineCNVcaller parameters
+pActive: 0.1 #            #<Double> Prior probability of treating an interval as CNV-active (in a CNV-active domains, all copy-number states are equally likely to be called). Default value: 0.1. 
+pAlt: 0.0005 #          #<Double> Total prior probability of alternative copy-number states (the reference copy-number is set to the contig integer ploidy)  Default value: 0.0005. 
+samplePsiScale: 0.01  #       #<Double> Typical scale of sample-specific correction to the unexplained variance.  Default value: 0.01. 
+mappingErrorRate: 0.01      #<Double> Typical mapping error rate.  Default value: 0.01. 
+classCoherenceLength: 10000.0       #<Double> Coherence length of CNV-active and CNV-silent domains (in the units of bp).  Defaultvalue: 10000.0. 
+cnvCoherenceLength: 10000.0     #<Double> Coherence length of CNV events (in the units of bp).  Default value: 10000.0. 
+intervalPsiScale: 0.01  #       #<Double> Typical scale of interval-specific unexplained variance.  Default value: 0.01. 
+activeClassPaddingHybridMode: 50000   #<Integer> If copy-number-posterior-expectation-mode is set to HYBRID, CNV-active intervals determined at any time will be padded by this value (in the units of bp) in order to obtain the set of intervals on which copy number posterior expectation is performed exactly.  Default value: 50000. 
+adamaxBeta1: 0.9            #<Double> Adamax optimizer first moment estimation forgetting factor.  Default value: 0.9. 
+adamaxBeta2: 0.99           #<Double> Adamax optimizer second moment estimation forgetting factor.  Default value: 0.99. 
+callerExternalAdmixingRate: 1.0   #<Double> Admixing ratio of new and old called posteriors (between 0 and 1; larger values implies using more of the new posterior and less of the old posterior) after convergence.  Default value: 1.0. 
+callerInternalAdmixingRate: 0.75    #<Double> Admixing ratio of new and old called posteriors (between 0 and 1; larger values implies using more of the new posterior and less of the old
+callerUpdateConvergenceThreshold: 0.001 #<Double> Maximum tolerated calling update size for convergence.  Default value: 0.001.   
+convergenceSnrAveragingWindow: 500    #<Integer> Averaging window for calculating training signal-to-noise ratio (SNR) for convergence checking.  Default value: 500. 
+convergenceSnrCountdownWindow: 10       #<Integer> The number of ADVI iterations during which the SNR is required to stay below the set threshold for convergence.  Default value: 10. 
+convergenceSnrTriggerThreshold: 0.1     #<Double> The SNR threshold to be reached before triggering the convergence countdown.  Default value: 0.1. 
+depthCorrectionTau: 10000.0       #<Double> Precision of read depth pinning to its global value.  Default value: 10000.0. 
+enableBiasFactors: true     #<Boolean> Enable discovery of bias factors.  Default value: true. Possible values: {true, false} 
+initArdRelUnexplainedVariance: 0.1    #<Double> Initial value of ARD prior precisions relative to the scale of interval-specific unexplained variance.  Default value: 0.1. 
+learningRate: 0.01        #<Double> Adamax optimizer learning rate.  Default value: 0.01. 
+logEmissionSamplesPerRound: 50    #<Integer> Log emission samples drawn per round of sampling.  Default value: 50. 
+logEmissionSamplingMedianRelError: 0.005  #<Double> Maximum tolerated median relative error in log emission sampling.  Default value: 0.005. 
+logEmissionSamplingRounds: 10   #<Integer> Log emission maximum sampling rounds.  Default value: 10. 
+logMeanBiasStandardDeviation: 0.1   #<Double> Standard deviation of log mean bias.  Default value: 0.1. 
+numSamplesCopyRatioApprox: 200    #<Integer> Number of samples to draw from the final model approximation to estimate denoised copy number ratios. Note that this argument will not affect inference of the model.  Default value: 200. 
+numThermalAdviIters: 2500       #<Integer> Number of thermal ADVI iterations (for DA-ADVI).  Default value: 2500. 
+copyNumberPosteriorExpectationMode: HYBRID #<CopyNumberPosteriorExpectationMode> The strategy for calculating copy number posterior expectations in the coverage denoising model.  Default value HYBRID. Possible values {MAP, EXACT, HYBRID} 
+gcCurveStandardDeviation: 1.0     #<Double> Prior standard deviation of the GC curve from flat.  Default value: 1.0. 
+maxBiasFactors: 6  #        #<Integer> Maximum number of bias factors.  Default value: 6. 
+maxCallingIters: 10         #<Integer> Maximum number of internal self-consistency iterations within each calling step.  Default value: 10. 
+maxAdviIterFirstEpoch: 5000     #<Integer> Maximum ADVI iterations in the first epoch.  Default value: 5000. 
+maxAdviIterSubsequentEpochs: 200    #<Integer> Maximum ADVI iterations in subsequent epochs.  Default value: 200. 
+maxTrainingEpochs: 50       #<Integer> Maximum number of training epochs.  Default value: 50. 
+minTrainingEpochs: 10       #<Integer> Minimum number of training epochs.  Default value: 10. 
+disableAnnealing: false       #<Boolean> (advanced) Disable annealing.  Default value: false. Possible values: {true, false}

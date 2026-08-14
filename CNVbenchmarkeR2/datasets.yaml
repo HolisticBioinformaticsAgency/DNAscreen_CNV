@@ -1,0 +1,332 @@
+# define which datasets will be evaluated in the benchmark
+
+# This is an example of dataset definition:
+# i can actually loop this for all DNA Screen Runs and create multiple
+# validated results file...
+dataset1:
+  include: true   # true to include this dataset in the analysis, false otherwise
+  bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/validation_sample_bam_vcf/files"   # folder where bams files (.bai indexes) are stored
+  bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+  bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+  annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+  fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+  fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+  validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+  validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+  read_length: 75   # read length used when sequencing
+
+# dataset_run4:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run4/bams_run4"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run5:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run5/bams_run5"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run6:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run6/bams_run6"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run7:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run7/bams_run7"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run8:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run8/bams_run8"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run9:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run9/bams_run9"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run11:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run11/bams_run11"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run12:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run12/bams_run12"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+
+# dataset_run13:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run13/bams_run13"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run14:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run14/bams_run14"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run15:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run15/bams_run15"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run16:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run16/bams_run16"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run17:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run17/bams_run17"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run18:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run18/bams_run18"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run19:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run19/bams_run19"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run20:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run20/bams_run20"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run21:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run21/bams_run21"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run22:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run22/bams_run22"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run23:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run23/bams_run23"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run24:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run24/bams_run24"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run25:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run25/bams_run25"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run26:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run26/bams_run26"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run28:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run28/bams_run28"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run30:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run30/bams_run30"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run31:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run31/bams_run31"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+# dataset_run35:
+#   include: true   # true to include this dataset in the analysis, false otherwise
+#   bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run35/bams_run35"   # folder where bams files (.bai indexes) are stored
+#   bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+#   bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+#   annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+#   fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+#   fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+#   validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run_val_samples.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+#   validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+#   read_length: 75   # read length used when sequencing
+
+
+

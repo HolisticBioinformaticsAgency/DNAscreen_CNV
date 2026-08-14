@@ -1,0 +1,16 @@
+# define which datasets will be evaluated in the benchmark 
+
+# This is an example of dataset definition:
+# i can actually loop this for all DNA Screen Runs and create multiple
+# validated results file...
+dataset1:
+  include: true   # true to include this dataset in the analysis, false otherwise
+  bams_dir: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run31/bams_run31"   # folder where bams files (.bai indexes) are stored
+  bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v3.bed"   # bed file defining ROIs. It must be sortered by chr and start position, and 4th column must contain only gene symbol. (See examples folder)
+  bed_file_summary: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/3427651_Covered_v2.bed"
+  annotated_bed_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/bed_file/gcAnnotated.3427651_Covered_v3.bed"  # annotated bed file with GC composition. Obtained using ngsbits, see https://github.com/imgag/ClinCNV/blob/master/doc/preliminary_steps.md
+  fasta_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta"   # genome fasta file
+  fasta_dict: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.dict" #dictionary file (.dict) from reference genome Use picard CreateSequenceDictionary function to generete the file.
+  validated_results_file: "/fs03/vh83/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/CNVbenchmarkeR2/examples/final_validated_run31.tsv"    # file containing results obtained using a orthogonal method (MLPA or aCGH) (See examples folder)
+  validated_results_file_format: "icr"   # format of validated results file: icr or panelcn
+  read_length: 75   # read length used when sequencing

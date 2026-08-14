@@ -1,0 +1,9 @@
+cov_thresh_down: 60
+cov_thresh_up: 4000
+length_thresh_down: 20
+length_thresh_up: 2000
+mapp_thresh: 0.9
+gc_thresh_down: 20
+gc_thresh_up: 80
+cn_del_threshold: 1.7
+cn_dup_threshold: 2.3

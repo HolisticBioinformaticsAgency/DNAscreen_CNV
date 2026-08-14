@@ -1,0 +1,22 @@
+cnvkitFolder: /home/zlaw0001/.local/bin
+
+# default values
+minGapSizeAccess: 5000 #Minimum gap size between accessible sequence regions. Regions separated by less than this distance will be joined together.
+bpPerBinAutobin: 100000.0 #Desired average number of sequencing read bases mapped to each bin.
+targetMaxSizeAutobin: 20000 #Maximum size of target bins
+targetMinSizeAutobin: 20 #Minimum size of target bins
+atargMaxSizeAutobin: 500000 #Maximum size of antitarget bins
+atargMinSizeAutobin: 500 #Minimum size of antitarget bins
+minMapqCoverage: 0 #Minimum mapping quality score (phred scale 0-60) to count a read for coverage depth.
+minClusterSizeReference: 4 #Minimum cluster size to keep in reference profiles.
+DropOutliersSegment: 10 # Drop outlier bins more than this many multiples of the 95th quantile away from the average within a rolling window. Set to 0 for no outlier filtering. 
+methodSegment: hmm-germline #{cbs,flasso,haar,none,hmm,hmm-tumor,hmm-germline} Segmentation method (see docs), or 'none' for chromosome arm-level averages as segments.
+alphaSegmetrics: 0.05 #Level to estimate confidence and prediction intervals; use with --ci and --pi. 
+bootstrapSegmetrics: 100 #Number of bootstrap iterations to estimate confidence interval; use with --ci.
+methodCall: threshold #{threshold,clonal,none} Calling method.
+filterCall: ci
+thresholdsCall_del: -1.1
+thresholdsCall_loss: -0.25
+thresholdsCall_gain: 0.2
+thresholdsCall_amp: 0.7 #Hard thresholds for calling each integer copy number, separated by commas. Use the '=' sign on the command line
+alphaBintest: 0.005

@@ -1,0 +1,5 @@
+deconFolder: /home/zlaw0001/vh83_scratch/projects/temp_dnascreen_copy/dnascreen/cnvbenchmarker/DECoN/Linux
+# default
+mincorr: 0.98
+mincov: 100
+transProb: 0.01
