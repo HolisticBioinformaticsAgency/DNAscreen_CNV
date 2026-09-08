@@ -17,39 +17,40 @@ BED_BAM_DIR="/home/zlaw0001/vh83_scratch/projects/temp_dnascreen_copy/dnascreen/
 
 # Create output directories
 mkdir -p "$MARKDUP_DIR"
-mkdir -p "$COORDSORTED_DIR"
 mkdir -p "$BED_BAM_DIR"
 
 # Output TSV file
 OUT_TSV="$MARKDUP_DIR/duplication_rates.tsv"
 echo -e "Barcode\tDuplicationRate" > "$OUT_TSV"
 
-# --- Define barcode ranges --- #
+# --- Define barcode range --- #
 BARCODES=($(seq 1001 1008) $(seq 1097 1104))
 
 # --- Loop through barcodes --- #
 for barcode in "${BARCODES[@]}"; do
     echo "Processing barcode$barcode..."
 
-    INPUT_BAM="$INPUT_DIR/PBG10946_pass_fb6074ec_f8186473_0_custom_barcode_0_19_custom_barcode_barcode${barcode}_rg.bam"
+    # Input BAMs in bams_demuxed are already coordinate-sorted and indexed
+    # by rename_part.sh, so no sort step is needed here.
+    COORDSORT_BAM="$INPUT_DIR/PBG10946_pass_fb6074ec_f8186473_0_custom_barcode_barcode${barcode}_rg.bam"
     BED_BAM="$BED_BAM_DIR/barcode${barcode}_bedRestricted.bam"
-    COORDSORT_BAM="$COORDSORTED_DIR/barcode${barcode}_coordSorted.bam"
     MARKDUP_BAM="$MARKDUP_DIR/markdup_barcode${barcode}.bam"
 
-    # 1. Sort by coordinate
-    samtools sort "$INPUT_BAM" -o "$COORDSORT_BAM"
-    samtools index "$COORDSORT_BAM"
+    if [[ ! -f "$COORDSORT_BAM" ]]; then
+        echo "⚠️  File not found for barcode${barcode}, skipping..."
+        continue
+    fi
 
-    # 2. Restrict to BED regions
+    # 1. Restrict to BED regions
     samtools view -b -L "$BED_FILE" "$COORDSORT_BAM" > "$BED_BAM"
 
-    # 3. Mark duplicates
+    # 2. Mark duplicates
     samtools markdup "$BED_BAM" "$MARKDUP_BAM"
 
-    # 4. Calculate duplication rate
+    # 3. Calculate duplication rate
     dup_rate=$(echo "scale=4; $(samtools view -c -f 1024 $MARKDUP_BAM) / $(samtools view -c -F 4 $MARKDUP_BAM)" | bc)
 
-    # 5. Append to TSV
+    # 4. Append to TSV
     echo -e "barcode${barcode}\t$dup_rate" >> "$OUT_TSV"
 done
 
