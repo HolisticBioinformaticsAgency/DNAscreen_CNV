@@ -30,7 +30,7 @@ BARCODES=($(seq 1001 1008) $(seq 1097 1104))
 for barcode in "${BARCODES[@]}"; do
     echo "🔍 Processing barcode${barcode}..."
 
-    IN_BAM="${INPUT_DIR}/barcode${barcode}_coordSorted.bam"
+    IN_BAM="${INPUT_DIR}/PBG10946_pass_fb6074ec_f8186473_0_custom_barcode_barcode${barcode}_rg.bam"
     FILTERED_BAM="${OUTPUT_DIR}/barcode${barcode}_q${MIN_Q}_mq${MIN_MAPQ}.bam"
     DEDUP_BAM="${OUTPUT_DIR}/barcode${barcode}_q${MIN_Q}_mq${MIN_MAPQ}_dedup.bam"
 
