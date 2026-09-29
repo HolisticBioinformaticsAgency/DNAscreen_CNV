@@ -1070,19 +1070,30 @@ rr_input <- manual_with_exons %>%
 all_rr_exons <- get_decon_exon_read_ratios(rr_input)
 
 rr_pass <- all_rr_exons %>%
-  filter(exon_type == "in_call") %>%
-  mutate(expected_rr = if_else(CNV_Type == "deletion", 0.5, 1.5)) %>%
+  mutate(
+    in_call     = exon_type == "in_call",
+    expected_rr = if_else(CNV_Type == "deletion", 0.5, 1.5)
+  ) %>%
   group_by(Sample, Gene, Chromosome, CNV_Start, CNV_End, CNV_Type) %>%
   summarise(
-    n_in_call_exons = n(),
-    rr1_pass  = any(abs(read_ratio - expected_rr) <= 0.15, na.rm = TRUE),
-    rr2_pass  = if_else(
-      CNV_Type[1L] == "deletion",
-      !any(read_ratio >= 1.35, na.rm = TRUE),
-      !any(read_ratio <= 0.65, na.rm = TRUE)
+    n_in_call_exons = sum(in_call),
+    n_out_call_exons = sum(!in_call),
+    
+    # RR1: at least one in-call exon close to the expected ratio
+    rr1_pass = any(in_call & abs(read_ratio - expected_rr) <= 0.15, na.rm = TRUE),
+    
+    # RR2: no exon OUTSIDE the call (same gene) with a ratio suggesting the opposite dosage
+    rr2_pass = case_when(
+      CNV_Type[1L] == "deletion"    ~ !any(!in_call & read_ratio >= 1.35, na.rm = TRUE),
+      CNV_Type[1L] == "duplication" ~ !any(!in_call & read_ratio <= 0.65, na.rm = TRUE),
+      TRUE ~ NA
     ),
-    rr_spread = max(read_ratio, na.rm = TRUE) - min(read_ratio, na.rm = TRUE),
+    
+    # RR3: spread across in-call exons only
+    rr_spread = max(read_ratio[in_call], na.rm = TRUE) -
+      min(read_ratio[in_call], na.rm = TRUE),
     rr3_pass  = if_else(n_in_call_exons > 1L, rr_spread <= 0.5, TRUE),
+    
     rr_pass_all = rr1_pass & rr2_pass & rr3_pass,
     .groups = "drop"
   )
@@ -1178,9 +1189,9 @@ stage4_manual <- stage4_manual %>%
       
       # ── DUPLICATION ──────────────────────────────────────────────────────────
       CNV_Type == "duplication" & !is_single_exon & n_informative_vafs == 0L          ~ FALSE,
-      CNV_Type == "duplication" & !is_single_exon & n_informative_vafs > 0 & prop_concordant > 0.5 ~ TRUE,
+      CNV_Type == "duplication" & !is_single_exon & n_informative_vafs > 0 & prop_concordant > 0.5 & n_discordant <= 2L ~ TRUE,
       CNV_Type == "duplication" & is_single_exon & n_informative_vafs == 0L           ~ TRUE,
-      CNV_Type == "duplication" & is_single_exon & n_informative_vafs > 0 & prop_concordant > 0.5 & n_discordant <= 1L ~ TRUE
+      CNV_Type == "duplication" & is_single_exon & n_informative_vafs > 0 & prop_concordant > 0.5 & n_discordant <= 2L ~ TRUE
     ),
     
     hc_classification = case_when(
