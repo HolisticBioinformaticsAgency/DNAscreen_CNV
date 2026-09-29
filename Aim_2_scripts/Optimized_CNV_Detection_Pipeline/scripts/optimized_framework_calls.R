@@ -491,10 +491,9 @@ annotate_vaf_status_del <- function(df) {
     rowwise() %>%
     mutate(
       vaf_status = if_else(
-        !vaf_within_ci_het(vaf, dp, target = 0.0) & 
-          !vaf_within_ci_het(vaf, dp, target = 1.0),
-        "discordant",   # CI excludes both 0 and 1.0 = indicative of heterozygosity = discordant with deletion-associated homozygosity
-        "neutral"       # CI includes 0 or 1.0 = consistent with LOH/homozygous = concordant with deletion
+        vaf_within_ci_het(vaf, dp, target = 0.5),
+        "discordant",  # 95% CI overlaps 0.5 = consistent with heterozygosity = discordant with deletion
+        "neutral"      # 95% CI excludes 0.5 = not consistent with heterozygosity = neutral
       )
     ) %>%
     ungroup()
