@@ -1,0 +1,4 @@
+run_id,bam_dir,vcf_dir
+run4,/path/to/consented/run4/bams_run4,/path/to/consented/run4/vcfs_run4
+run5,/path/to/consented/run5/bams_run5,/path/to/consented/run5/vcfs_run5
+run6,/path/to/consented/run6/bams_run6,/path/to/consented/run6/vcfs_run6

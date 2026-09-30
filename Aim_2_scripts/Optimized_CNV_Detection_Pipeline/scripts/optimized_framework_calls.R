@@ -45,17 +45,17 @@ standardise_clearcnv <- function(df) {
 # ============================================================
 
 decon_file <- read.csv(
-  "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_2/Optimized_CNV_Detection_Pipeline/output/combined_cnv_calls_decon_exon_bed.tsv",
+  "/path/to/project/Aim_2/Optimized_CNV_Detection_Pipeline/output/combined_cnv_calls_decon_exon_bed.tsv",
   sep = "\t"
 )
 
 clearcnv_file <- read.csv(
-  "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_2/Optimized_CNV_Detection_Pipeline/output/combined_cnv_calls_clearcnv_exon_bed_001.tsv",
+  "/path/to/project/Aim_2/Optimized_CNV_Detection_Pipeline/output/combined_cnv_calls_clearcnv_exon_bed_001.tsv",
   sep = "\t"
 )
 
 all_samples <- read.csv(
-  "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_1/CNV_calling/CI_plots/all_samples_combined.csv"
+  "/path/to/project/Aim_1/CNV_calling/CI_plots/all_samples_combined.csv"
 )
 
 # ============================================================
@@ -92,7 +92,7 @@ get_decon_exon_read_ratios <- function(decon_calls) {
   for (run_num in runs_needed) {
     
     rdata_path <- sprintf(
-      "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_1/CNV_calling/exome_depth/RData/run%d_bams_9genes_25bp.fix.sorted.RData",
+      "/path/to/project/Aim_1/CNV_calling/exome_depth/RData/run%d_bams_9genes_25bp.fix.sorted.RData",
       run_num
     )
     
@@ -309,7 +309,7 @@ vaf_within_ci_het <- function(vaf, dp, target = 0.5) {
 # LOCATE VCF FILES
 # ============================================================
 
-vcf_dir <- "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_1/Validations/bam_and_vcf"
+vcf_dir <- "/path/to/project/Aim_1/Validations/bam_and_vcf"
 
 vcf_files <- list.files(vcf_dir, pattern = "\\.sorted\\.vcf\\.gz$", full.names = TRUE)
 
@@ -713,7 +713,7 @@ get_cnv_region_read_count <- function(calls_df) {
   
   for (run_num in runs_needed) {
     rdata_path <- sprintf(
-      "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_1/CNV_calling/exome_depth/RData/run%d_bams_9genes_25bp.fix.sorted.RData",
+      "/path/to/project/Aim_1/CNV_calling/exome_depth/RData/run%d_bams_9genes_25bp.fix.sorted.RData",
       run_num
     )
     
@@ -1013,7 +1013,7 @@ manual_inspection_calls <- stage3_calls %>%
 # ── 4b. Load BED file (6-col, 0-based coords, chr-prefixed) ──────────────────
 
 bed_file <- read.table(
-  "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_1/CNV_calling/exome_depth/bed_files/9genes_25bp.fix.sorted.bed",
+  "/path/to/project/Aim_1/CNV_calling/exome_depth/bed_files/9genes_25bp.fix.sorted.bed",
   header = FALSE, sep = "\t",
   col.names = c("chr", "start", "end", "name", "score", "strand")
 ) %>%
@@ -1236,7 +1236,7 @@ cat(sprintf("  Duplications: %d\n", sum(high_confidence_calls$CNV_Type == "dupli
 
 # write.csv(
 #   high_confidence_calls,
-#   file = "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_2/Optimized_CNV_Detection_Pipeline/rr_of_12_highconf_calls_with_vaf/high_confidence_calls.csv",
+#   file = "/path/to/project/Aim_2/Optimized_CNV_Detection_Pipeline/rr_of_12_highconf_calls_with_vaf/high_confidence_calls.csv",
 #   row.names = FALSE
 # )
 

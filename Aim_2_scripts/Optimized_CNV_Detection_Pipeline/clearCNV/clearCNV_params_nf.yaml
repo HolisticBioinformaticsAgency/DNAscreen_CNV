@@ -13,7 +13,7 @@ dup_cutoff: 1.35
 trans_prob: 0.001
 
 # Reference files
-fasta_file: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta
-# bed_file: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/Optimized_CNV_Detection_Pipeline/bed_files/9genes_25bp.fix.sorted.bed
-bed_file: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/Optimized_CNV_Detection_Pipeline/bed_files/dnascreen_genes_500bp_bins.bed
-blacklist: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/Optimized_CNV_Detection_Pipeline/clearCNV/consensusBlacklist.bed
+fasta_file: /path/to/genomes/Homo_sapiens_assembly38.fasta
+# bed_file: /path/to/Optimized_CNV_Detection_Pipeline/bed_files/9genes_25bp.fix.sorted.bed
+bed_file: /path/to/Optimized_CNV_Detection_Pipeline/bed_files/dnascreen_genes_500bp_bins.bed
+blacklist: /path/to/Optimized_CNV_Detection_Pipeline/clearCNV/consensusBlacklist.bed

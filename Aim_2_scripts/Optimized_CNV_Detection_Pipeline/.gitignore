@@ -1,0 +1,11 @@
+work/
+decision_tree/
+output/
+bed_files/
+
+bam_dirs.txt
+
+*.log
+*.out
+*.html
+*.bed

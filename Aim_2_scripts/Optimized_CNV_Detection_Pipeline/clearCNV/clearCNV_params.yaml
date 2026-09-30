@@ -1,5 +1,5 @@
 # clearCNV parameters
-outputFolder: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/Optimized_CNV_Detection_Pipeline/output/clearcnv_output_ont_dorado
+outputFolder: /path/to/Optimized_CNV_Detection_Pipeline/output/clearcnv_output_ont_dorado
 cores: 20
 
 # clearCNV runtime options
@@ -14,11 +14,11 @@ dup_cutoff: 1.35
 trans_prob: 0.001
 
 # Reference files
-fasta_file: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/genomes/Homo_sapiens_assembly38.fasta
-bed_file: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/Optimized_CNV_Detection_Pipeline/bed_files/9genes_25bp.fix.sorted.bed
-blacklist: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/Optimized_CNV_Detection_Pipeline/clearCNV/consensusBlacklist.bed
+fasta_file: /path/to/genomes/Homo_sapiens_assembly38.fasta
+bed_file: /path/to/Optimized_CNV_Detection_Pipeline/bed_files/9genes_25bp.fix.sorted.bed
+blacklist: /path/to/Optimized_CNV_Detection_Pipeline/clearCNV/consensusBlacklist.bed
 
 # Dataset settings
 project_name: bams_run5
-# bams_dir: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/dorado_demultiplex_142pods_barcode_both_ends/bams_coord_sorted
-bams_dir: /fs03/vh83/projects/temp_dnascreen_copy/dnascreen/consented/run5/bams_run5
+# bams_dir: /path/to/dorado_demultiplex_142pods_barcode_both_ends/bams_coord_sorted
+bams_dir: /path/to/consented/run5/bams_run5

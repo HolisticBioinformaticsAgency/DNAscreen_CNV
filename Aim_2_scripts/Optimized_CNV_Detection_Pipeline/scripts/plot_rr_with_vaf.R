@@ -15,20 +15,20 @@ library(VariantAnnotation)
 # OUTPUT DIRECTORY
 # ============================================================
 
-output_dir <- "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_2/Optimized_CNV_Detection_Pipeline/test"
+output_dir <- "/path/to/project/Aim_2/Optimized_CNV_Detection_Pipeline/test"
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
 # ============================================================
 # BAM DIRECTORY
 # ============================================================
 
-bam_dir <- "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_1/Validations/bam_and_vcf"
+bam_dir <- "/path/to/project/Aim_1/Validations/bam_and_vcf"
 
 # ============================================================
 # LOAD CACHED EXON DATA (gene track)
 # ============================================================
 
-exons_combined <- readRDS("/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_2/CNV-plot/cached_exon_data.rds")
+exons_combined <- readRDS("/path/to/project/Aim_2/CNV-plot/cached_exon_data.rds")
 
 clinically_relevant_transcripts <- list(
   BRCA1 = "NM_007294.4",
@@ -73,7 +73,7 @@ vaf_within_ci_het <- function(vaf, dp, target = 0.5) {
 # LOCATE VCF FILES
 # ============================================================
 
-vcf_dir   <- "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_1/Validations/bam_and_vcf"
+vcf_dir   <- "/path/to/project/Aim_1/Validations/bam_and_vcf"
 vcf_files <- list.files(vcf_dir, pattern = "\\.sorted\\.vcf\\.gz$", full.names = TRUE)
 vcf_lookup <- setNames(
   vcf_files,
@@ -200,7 +200,7 @@ plot_rr_vaf <- function(target_sample, gene_symbol, cnv_chr,
   annot_arrow <- pt2mm(base_size * 0.75)
   
   # ── Load read counts ────────────────────────────────────────────────────────
-  read_count_dir   <- "/Users/zlaw0001/Library/CloudStorage/OneDrive-MonashUniversity/Joshua_PhD_Project/Aim_1/CNV_calling/exome_depth/RData"
+  read_count_dir   <- "/path/to/project/Aim_1/CNV_calling/exome_depth/RData"
   read_count_rdata <- sprintf("%s/run%d_bams_9genes_25bp.fix.sorted.RData",
                               read_count_dir, dnascreen_run)
   if (!file.exists(read_count_rdata)) {
