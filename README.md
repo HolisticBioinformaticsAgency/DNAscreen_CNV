@@ -123,14 +123,6 @@ Manual breakpoint resolution in IGV (§2.4.3) and clinical re-curation (§2.4.4)
 
 Versions for the other benchmarked callers are listed in thesis Table 2.2. Most scripts were written for SLURM on the Monash M3 HPC cluster and contain hard-coded paths, which will need editing before use elsewhere.
 
-## Data availability
-
-This repository contains no participant data. DNA Screen sequencing data are governed by the study's ethics approval (Alfred Hospital HREC, project 597/21) and participant consent.
-
-## Acknowledgements
-
-aCGH design and interpretation, and long-read target enrichment and sequencing, were performed by Dan Belluoccio. Clinical curation was performed by Ari Horton and approved by the DNA Screen curation team. Supervisors: Tu Nguyen-Dumont, Jason Steen and Paul Lacaze. The DNA Screen study was supported by the MRFF Genomics Health Futures Mission (APP2009024) and a Victorian Cancer Agency Mid-Career Research Fellowship (MCRF21029).
-
 ## License
 
 See [LICENSE](LICENSE). The bundled CNVbenchmarkeR2 and PacBio HiFiTargetEnrichment workflows keep their original licenses.
