@@ -5,36 +5,50 @@ import argparse
 import pandas as pd
 
 # ── Mode argument ─────────────────────────────────────────────────────────────
-parser = argparse.ArgumentParser(description="Compare cuteSV CNV calls to truth set.")
-parser.add_argument("--mode", choices=["ont", "pacbio"], required=True,
+parser = argparse.ArgumentParser(description="Compare SVIM CNV calls to truth set.")
+parser.add_argument("--mode", choices=["ont", "ont_round2", "pacbio"], required=True,
                     help="Sequencing mode: 'ont' or 'pacbio'")
 args = parser.parse_args()
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-BASE_DIR = "/path/to/ONT_PacBio_CNV_calling/ont_pacbio_sv_callers/cutesv"
+BASE_DIR = "/path/to/ONT_PacBio_CNV_calling/ont_pacbio_sv_callers/svim"
 TSV_FILE = "/path/to/ONT_PacBio_CNV_calling/ont_pacbio_sv_callers/real_breakpoints.tsv"
 
 if args.mode == "ont":
-    VCF_BASE   = os.path.join(BASE_DIR, "cutesv_ont")
-    OUTPUT_TSV = os.path.join(BASE_DIR, "cutesv_ont", "cutesv_cnv_comparison.tsv")
+    VCF_BASE   = os.path.join(BASE_DIR, "svim_ont")
+    OUTPUT_TSV = os.path.join(VCF_BASE, "svim_cnv_comparison.tsv")
+elif args.mode == "ont_round2":
+    VCF_BASE   = os.path.join(BASE_DIR, "svim_ont_round2")
+    OUTPUT_TSV = os.path.join(VCF_BASE, "svim_cnv_comparison_round2.tsv")
 elif args.mode == "pacbio":
-    VCF_BASE   = os.path.join(BASE_DIR, "cutesv_pacbio")
-    OUTPUT_TSV = os.path.join(BASE_DIR, "cutesv_pacbio", "cutesv_cnv_comparison.tsv")
+    VCF_BASE   = os.path.join(BASE_DIR, "svim_pacbio")
+    OUTPUT_TSV = os.path.join(VCF_BASE, "svim_cnv_comparison.tsv")
 
 print(f"Mode     : {args.mode}")
 print(f"VCF base : {VCF_BASE}")
 print(f"Output   : {OUTPUT_TSV}")
 
 # ── Barcodes with approximate/gene-window coordinates ────────────────────────
-# These use a gene-body window as the search region; results are flagged as approx.
 APPROX_BARCODES = {
-    "bc1006",   # PCSK9 gene window (GRCh38: chr1:55,039,476-55,064,853)
-    "bc1103",   # MLH1  gene window (GRCh38: chr3:36,993,226-37,050,896)
+    "bc1006",   # PCSK9 gene window (GRCh38: chr1:55,035,547-55,065,852)
+    "bc1103",   # MLH1  gene window (GRCh38: chr3:36,989,517-37,051,847)
+    "bc1116",   # BRCA2 gene window (GRCh38: chr13:32,311,507-32,401,269)
+    "bc1117",   # BRCA1 gene window (GRCh38: chr17:43,043,294-43,129,365)
+    "bc1118",   # PCSK9 gene window (GRCh38: chr1:55,035,547-55,065,852)
+    "bc1119",   # MSH2  gene window (GRCh38: chr2:47,399,155-47,484,176)
+    "bc1125",   # BRCA2 gene window (GRCh38: chr13:32,311,507-32,401,269)
+    "bc1126",   # BRCA2 gene window (GRCh38: chr13:32,311,507-32,401,269)
 }
 
 APPROX_GENE_LABELS = {
     "bc1006": "PCSK9",
     "bc1103": "MLH1",
+    "bc1116": "BRCA2",
+    "bc1117": "BRCA1",
+    "bc1118": "PCSK9",
+    "bc1119": "MSH2",
+    "bc1125": "BRCA2",
+    "bc1126": "BRCA2",
 }
 
 # ── Load truth TSV ────────────────────────────────────────────────────────────
@@ -49,9 +63,11 @@ truth = truth.rename(columns={
     "True CNV End": "true_end_raw"
 })
 
+
 def normalise_chrom(chrom):
     """Strip 'chr' prefix for consistent comparison."""
     return str(chrom).strip().lstrip("chr") if chrom else chrom
+
 
 def parse_coord(coord_str):
     """Parse 'chr:pos' string -> (chrom, int pos). Returns (None, None) for NA."""
@@ -61,8 +77,15 @@ def parse_coord(coord_str):
     chrom, pos = coord_str.split(":")
     return normalise_chrom(chrom), int(pos.strip())
 
+
 def parse_vcf(vcf_path):
-    """Parse a cuteSV VCF and return list of dicts with type, chrom, start, end."""
+    """Parse an SVIM VCF and return list of dicts with type, chrom, start, end.
+
+    SVIM records (INS/DEL/DUP) carry an explicit END= tag, but SVLEN is kept
+    as a fallback in case any record omits it. Note SVIM reports DEL SVLEN
+    as negative, hence abs(). BND records (translocations) have no END and
+    are naturally skipped.
+    """
     svs = []
     if not os.path.exists(vcf_path):
         print(f"  WARNING: VCF not found: {vcf_path}")
@@ -78,22 +101,44 @@ def parse_vcf(vcf_path):
             pos   = int(parts[1])
             info  = parts[7]
 
-            svtype, end = None, None
+            svtype, end, svlen = None, None, None
             for field in info.split(";"):
                 if field.startswith("SVTYPE="):
                     svtype = field.split("=")[1].upper()
-                if field.startswith("END="):
+                elif field.startswith("END="):
                     try:
                         end = int(field.split("=")[1])
                     except ValueError:
                         pass
-            if svtype and end:
-                svs.append({"svtype": svtype, "chrom": chrom, "start": pos, "end": end})
+                elif field.startswith("SVLEN="):
+                    try:
+                        svlen = int(field.split("=")[1])
+                    except ValueError:
+                        pass
+
+            if svtype is None:
+                continue
+
+            if end is None and svlen is not None:
+                end = pos + abs(svlen)
+
+            if end is None:
+                continue
+
+            svs.append({"svtype": svtype, "chrom": chrom, "start": pos, "end": end})
     return svs
+
 
 def overlaps(sv, chrom, window_start, window_end):
     """Return True if the SV overlaps the given genomic window."""
     return sv["chrom"] == chrom and sv["start"] <= window_end and sv["end"] >= window_start
+
+
+def svtype_matches(sv_svtype, expected_svtype):
+    """SVIM emits duplication subtypes like DUP:TANDEM / DUP:INT, so match
+    by prefix rather than exact equality."""
+    return sv_svtype.startswith(expected_svtype)
+
 
 # ── Map CNV type strings to VCF SVTYPE ───────────────────────────────────────
 TYPE_MAP = {"Deletion": "DEL", "Duplication": "DUP"}
@@ -127,27 +172,25 @@ for _, row in truth.iterrows():
         })
         continue
 
-    # cuteSV VCF filename: cutesv_bc1003.vcf
-    vcf_path = os.path.join(VCF_BASE, barcode, f"cutesv_{barcode}.vcf")
+    # SVIM output: <VCF_BASE>/<barcode>/variants.vcf (fixed filename)
+    vcf_path = os.path.join(VCF_BASE, barcode, "variants.vcf")
     svs      = parse_vcf(vcf_path)
 
     if is_approx:
-        # Primary: SVs overlapping the gene window
         candidates = [
             sv for sv in svs
-            if sv["svtype"] == expected_svtype
+            if svtype_matches(sv["svtype"], expected_svtype)
             and overlaps(sv, true_chrom_s, true_start, true_end)
         ]
         if not candidates:
-            # Fallback: nearest SV of the right type on the same chromosome
             candidates = [
                 sv for sv in svs
-                if sv["svtype"] == expected_svtype and sv["chrom"] == true_chrom_s
+                if svtype_matches(sv["svtype"], expected_svtype) and sv["chrom"] == true_chrom_s
             ]
     else:
         candidates = [
             sv for sv in svs
-            if sv["svtype"] == expected_svtype and sv["chrom"] == true_chrom_s
+            if svtype_matches(sv["svtype"], expected_svtype) and sv["chrom"] == true_chrom_s
         ]
 
     if not candidates:
@@ -167,7 +210,6 @@ for _, row in truth.iterrows():
         continue
 
     if is_approx:
-        # Pick the SV with the largest overlap with the gene window
         best = max(candidates, key=lambda sv:
                    min(sv["end"], true_end) - max(sv["start"], true_start))
     else:

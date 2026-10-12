@@ -6,7 +6,7 @@ import pandas as pd
 
 # ── Mode argument ─────────────────────────────────────────────────────────────
 parser = argparse.ArgumentParser(description="Compare Sniffles2 CNV calls to truth set.")
-parser.add_argument("--mode", choices=["ont", "pacbio"], required=True,
+parser.add_argument("--mode", choices=["ont", "ont_round2", "pacbio"], required=True,
                     help="Sequencing mode: 'ont' or 'pacbio'")
 args = parser.parse_args()
 
@@ -17,6 +17,9 @@ TSV_FILE = "/path/to/ONT_PacBio_CNV_calling/ont_pacbio_sv_callers/real_breakpoin
 if args.mode == "ont":
     VCF_BASE   = os.path.join(BASE_DIR, "sniffles_ont")
     OUTPUT_TSV = os.path.join(BASE_DIR, "sniffles_ont", "sniffles_cnv_comparison.tsv")
+elif args.mode == "ont_round2":
+    VCF_BASE   = os.path.join(BASE_DIR, "sniffles_ont_round2")
+    OUTPUT_TSV = os.path.join(BASE_DIR, "sniffles_ont_round2", "sniffles_cnv_comparison_round2.tsv")
 elif args.mode == "pacbio":
     VCF_BASE   = os.path.join(BASE_DIR, "sniffles_pacbio")
     OUTPUT_TSV = os.path.join(BASE_DIR, "sniffles_pacbio", "sniffles_cnv_comparison.tsv")
@@ -28,13 +31,25 @@ print(f"Output   : {OUTPUT_TSV}")
 # ── Barcodes with approximate/gene-window coordinates ────────────────────────
 # These use a gene-body window as the search region; results are flagged as approx.
 APPROX_BARCODES = {
-    "bc1006",   # PCSK9 gene window (GRCh38: chr1:55,039,476-55,064,853)
-    "bc1103",   # MLH1  gene window (GRCh38: chr3:36,993,226-37,050,896)
+    "bc1006",   # PCSK9 gene window (GRCh38: chr1:55,035,547-55,065,852)
+    "bc1103",   # MLH1  gene window (GRCh38: chr3:36,989,517-37,051,847)
+    "bc1116",   # BRCA2 gene window (GRCh38: chr13:32,311,507-32,401,269)
+    "bc1117",   # BRCA1 gene window (GRCh38: chr17:43,043,294-43,129,365)
+    "bc1118",   # PCSK9 gene window (GRCh38: chr1:55,035,547-55,065,852)
+    "bc1119",   # MSH2  gene window (GRCh38: chr2:47,399,155-47,484,176)
+    "bc1125",   # BRCA2 gene window (GRCh38: chr13:32,311,507-32,401,269)
+    "bc1126",   # BRCA2 gene window (GRCh38: chr13:32,311,507-32,401,269)
 }
 
 APPROX_GENE_LABELS = {
     "bc1006": "PCSK9",
     "bc1103": "MLH1",
+    "bc1116": "BRCA2",
+    "bc1117": "BRCA1",
+    "bc1118": "PCSK9",
+    "bc1119": "MSH2",
+    "bc1125": "BRCA2",
+    "bc1126": "BRCA2",
 }
 
 # ── Load truth TSV ────────────────────────────────────────────────────────────

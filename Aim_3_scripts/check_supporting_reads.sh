@@ -16,9 +16,24 @@ module load samtools
 BASE="/path/to/ONT_PacBio_CNV_calling"
 BASE_ONT="${BASE}/breakpoint_identification_ont"
 BASE_PB="${BASE}/breakpoint_identification_pacbio"
-FULL_BAM_ONT_DIR="/path/to/dorado_demultiplex_142pods_barcode_both_ends/bams_dedup_cleaned"
+
+# ── ONT full-BAM source directories ────────────────────────────────────────
+# Barcodes 1113-1128 come from a different dorado demultiplex run than the
+# rest of the cohort (1001-1104), so pick the base dir per barcode.
+FULL_BAM_ONT_DIR_DEFAULT="/path/to/dorado_demultiplex_142pods_barcode_both_ends/bams_dedup_cleaned"
+FULL_BAM_ONT_DIR_ROUND2="/path/to/dorado_demultiplex_round2_full_ont"
+
 FULL_BAM_PB_DIR="/path/to/demultiplex_pb/workflow_HiFiTargetEnrichment/batches/target_hifit"
-OUTPUT="${BASE}/ont_pacbio_sv_callers/sa_junction_read_counts.tsv"
+OUTPUT="${BASE}/ont_pacbio_sv_callers/sa_junction_read_counts_v3.tsv"
+
+get_full_bam_ont_dir() {
+    local bc="$1"
+    if (( bc >= 1113 && bc <= 1128 )); then
+        echo "$FULL_BAM_ONT_DIR_ROUND2"
+    else
+        echo "$FULL_BAM_ONT_DIR_DEFAULT"
+    fi
+}
 
 # ── N/A barcodes ──────────────────────────────────────────────────────────────
 declare -A NA_SAMPLE_ID
@@ -43,9 +58,15 @@ JUNCTION[1100]="ctgcccaccttggcctcccaaagtgctgggattacaggcgtgagccactgcacctggcc";   
 JUNCTION[1101]="tttcaccatgttggccaggctggtcttaaactc";                              SAMPLE_ID[1101]="DNSxxxxxx"
 JUNCTION[1102]="tttcaccatgttggccaggctggtcttaaactc";                              SAMPLE_ID[1102]="DNSxxxxxx"
 JUNCTION[1104]="aaatggggtctcctgcctca";                                            SAMPLE_ID[1104]="DNSxxxxxx"
+JUNCTION[1113]="ctcggcctcccaaagtgctgggattacaggcgtga";                            SAMPLE_ID[1113]="DNSxxxxxx"
+JUNCTION[1114]="ctctgtctgtttc";                                                   SAMPLE_ID[1114]="DNSxxxxxx"
+
+# TODO: fill in JUNCTION / SAMPLE_ID for barcodes 1115-1128 here, e.g.:
+# JUNCTION[1115]="..."; SAMPLE_ID[1115]="..."
+# ...
+# JUNCTION[1128]="..."; SAMPLE_ID[1128]="..."
 
 # ── True breakpoint coordinates (chrom without commas) ───────────────────────
-# Format: BP_CHROM[bc] BP_START[bc] BP_END[bc]
 declare -A BP_CHROM BP_START BP_END
 
 BP_CHROM[1002]="16"; BP_START[1002]="23605575";  BP_END[1002]="23615114"
@@ -60,6 +81,12 @@ BP_CHROM[1100]="17"; BP_START[1100]="43045048";  BP_END[1100]="43046166"
 BP_CHROM[1101]="17"; BP_START[1101]="43078282";  BP_END[1101]="43084362"
 BP_CHROM[1102]="17"; BP_START[1102]="43078282";  BP_END[1102]="43084362"
 BP_CHROM[1104]="19"; BP_START[1104]="11094251";  BP_END[1104]="11175478"
+# PALB2 tandem duplication
+BP_CHROM[1113]="16"; BP_START[1113]="23611399";  BP_END[1113]="23615201"
+# MLH1 tandem duplication
+BP_CHROM[1114]="3";  BP_START[1114]="37045688";  BP_END[1114]="37052535"
+
+# TODO: fill in BP_CHROM / BP_START / BP_END for barcodes 1115-1128 here.
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 revcomp() {
@@ -75,9 +102,6 @@ count_junction_reads() {
     }' | sort -u | wc -l
 }
 
-# Count unique reads in locus BAM overlapping either true breakpoint position.
-# Uses samtools region query (chrom:pos-pos) at each breakpoint; deduplicates
-# across both positions so reads spanning both are counted only once.
 count_locus_reads() {
     local bam="$1" chrom="$2" bp1="$3" bp2="$4"
     {
@@ -107,14 +131,25 @@ full_bam_ont\tbreakpoint_reads_bam_ont\t\
 full_bam_pacbio\tbreakpoint_reads_bam_pacbio" > "$OUTPUT"
 
 # ── Main loop ─────────────────────────────────────────────────────────────────
+# Extended to 1128 to cover the round-2 ONT barcodes.
 for bc_num in 1001 1002 1003 1004 1005 1006 1007 1008 \
-              1097 1098 1099 1100 1101 1102 1103 1104; do
+              1097 1098 1099 1100 1101 1102 1103 1104 \
+              1113 1114 1115 1116 1117 1118 1119 1120 \
+              1121 1122 1123 1124 1125 1126 1127 1128; do
 
     # N/A barcodes ─────────────────────────────────────────────────────────────
     if [[ -n "${NA_SAMPLE_ID[$bc_num]+_}" ]]; then
         sid="${NA_SAMPLE_ID[$bc_num]}"
         echo "── barcode${bc_num} (${sid}) — N/A"
         echo -e "barcode${bc_num}\t${sid}\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A" >> "$OUTPUT"
+        continue
+    fi
+
+    # Skip barcodes that have no junction/breakpoint data yet (e.g. undefined
+    # 1115-1128 until you populate JUNCTION/SAMPLE_ID/BP_* above).
+    if [[ -z "${JUNCTION[$bc_num]+_}" ]]; then
+        echo "── barcode${bc_num} — SKIPPED (no junction/sample/breakpoint data defined)"
+        echo -e "barcode${bc_num}\tUNDEFINED\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A\tN/A" >> "$OUTPUT"
         continue
     fi
 
@@ -128,7 +163,8 @@ for bc_num in 1001 1002 1003 1004 1005 1006 1007 1008 \
     echo "── barcode${bc_num} (${sid})  breakpoints: chr${chrom}:${bp1} / chr${chrom}:${bp2}"
 
     # Full BAM paths ───────────────────────────────────────────────────────────
-    full_bam_ont="${FULL_BAM_ONT_DIR}/barcode${bc_num}_q10_mq20_dedup.bam"
+    full_bam_ont_dir=$(get_full_bam_ont_dir "$bc_num")
+    full_bam_ont="${full_bam_ont_dir}/barcode${bc_num}_q10_mq20_dedup.bam"
     [[ ! -f "$full_bam_ont" ]] && full_bam_ont="NOT_FOUND"
 
     full_bam_pb="${FULL_BAM_PB_DIR}/bc${bc_num}/realigned_minimap2/bc${bc_num}.minimap2.GRCh38.bam"
